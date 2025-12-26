@@ -1,12 +1,5 @@
 #define _GNU_SOURCE
-#include <alloca.h> // Required by asoundlib.h on musl
 #include <alsa/asoundlib.h>
-#include <alsa/mixer.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/mman.h>
 
 int main(int argc, char **argv)
 {
@@ -18,7 +11,7 @@ int main(int argc, char **argv)
 
     int error_code = 0;
     int card_id = -1;
-    while (true)
+    while (1)
     {
         char *card_name = NULL;
         char *card_human_name = NULL;
@@ -76,15 +69,21 @@ int main(int argc, char **argv)
         {
             const char *elem_name = snd_mixer_selem_get_name(elem);
             int elem_index = snd_mixer_selem_get_index(elem);
+            if (snd_mixer_elem_get_type(elem) != SND_MIXER_ELEM_SIMPLE) {
+                printf("WARN NON SIMPLE %s has control %s,%d\n", card_name, elem_name, elem_index);
+                fflush(stdout);
+            }
             if (snd_mixer_selem_has_playback_switch(elem))
             {
                 if (muteState == 0)
                 {
                     printf("Audio Info - %s has control %s,%d with mute toggle. Muting...\n", card_name, elem_name, elem_index);
+                    fflush(stdout);
                 }
                 else
                 {
                     printf("Audio Info - %s has control %s,%d with mute toggle. Unmuting...\n", card_name, elem_name, elem_index);
+                    fflush(stdout);
                 }
                 if ((error_code = snd_mixer_selem_set_playback_switch_all(elem, muteState)) != 0)
                 {
