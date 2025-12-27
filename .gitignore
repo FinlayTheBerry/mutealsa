@@ -1,2 +1,5 @@
 mutealsa
 mutealsa_debug
+mutealsa_static
+libalsa/
+musl/
