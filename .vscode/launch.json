@@ -6,6 +6,7 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/mutealsa_debug",
+      "args": [ "pre" ],
       "MIMode": "gdb",
       "miDebuggerArgs": "--nx",
       "setupCommands": [

@@ -15,8 +15,16 @@ void cleanup(char **card_name, snd_mixer_t **mixer)
     }
 }
 
+struct state {
+    int card_id;
+    int elem_id;
+    int state;
+};
+
 int main(int argc, char **argv)
 {
+    //const char* state_path = "/run/mutealsa-state-60eaa8c5-be35-4e04-a9fa-4616caadb819";
+
     int error_code = 0;
     int muteState = 0;
     int card_id = -1;
@@ -99,6 +107,10 @@ int main(int argc, char **argv)
 
         for (elem = snd_mixer_first_elem(mixer); elem; elem = snd_mixer_elem_next(elem))
         {
+            int elem_id = snd_mixer_selem_get_index(elem);
+            printf("Card %d elem %d\n", card_id, elem_id);
+            fflush(stdout);
+
             if (!snd_mixer_selem_has_playback_switch(elem))
             {
                 continue;
