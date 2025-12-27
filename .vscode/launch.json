@@ -2,10 +2,10 @@
   "version": "2.0.0",
   "configurations": [
     {
-      "name": "MuteAlsa (Build and Debug)",
+      "name": "SleepMute (Build and Debug)",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/mutealsa_debug",
+      "program": "${workspaceFolder}/sleepmute_debug",
       "args": [ "pre" ],
       "MIMode": "gdb",
       "miDebuggerArgs": "--nx",
